@@ -1,0 +1,54 @@
+﻿@using TAL.Enums
+@{
+    ViewData["Title"] = "Home Page";
+}
+@model TAL.Models.UserModel
+
+<div>
+    @using (Html.BeginForm("Index","Home",FormMethod.Post, new { @class = "col-lg-6 offset-lg-3" }))
+    {
+        <div class="form-horizontal">
+            <div class="form-group">
+                Enter Name*:
+                <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                Enter Age*:
+                <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Age)
+                @Html.ValidationMessageFor(m => m.Age, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                Enter Date of Birth (DD/MM/YYYY)*: 
+                <div class="col-md-10">
+                @Html.TextBoxFor(m => m.DOB, new { htmlAttributes = new { @class = "datepicker" } })
+                @Html.ValidationMessageFor(m => m.DOB, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                Enter Occupation*: 
+                <div class="col-md-10">
+                @Html.DropDownListFor(o => o.Occupation, Enum.GetValues(typeof(OccupationEnum)).Cast<OccupationEnum>().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }))
+                    @Html.ValidationMessageFor(m => m.Occupation, "", new { @class = "text-danger" })
+                    </div>
+            </div>
+            <div class="form-group">
+                Enter Death – Sum Insured*: 
+                <div class="col-md-10">
+                @Html.TextBoxFor(m => m.DeathSum)
+                @Html.ValidationMessageFor(m => m.DeathSum, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit Form" />
+            </div>
+        </div>
+    }  
+    <h4 style="color:black">
+    <b>Monthly Premium Amount:</b>    @ViewBag.DeathPremium <br />
+    </h4>
+</div>
